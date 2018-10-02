@@ -1,9 +1,10 @@
 !function(){
+    let duration= 20
     function writeCode(prefix, code, fn){
         let container = document.querySelector('#code')
         let styleTag = document.querySelector('#styleTag')
         let n=0
-        let ids=setInterval(()=>{
+        let ids=setTimeout(function run(){
             n+=1
             container.innerHTML= code.substring(0,n)
             styleTag.innerHTML = code.substring(0,n)
@@ -11,8 +12,10 @@
             if(n>=code.length){
                 window.clearInterval(ids)
                 fn && fn.call()
+            }else{
+                setTimeout(run,duration)
             }
-        },10)
+        },duration)
     }
     let code=`
     /*
@@ -168,4 +171,21 @@
    */
     `
     writeCode('',code)
+    $('.actions').on('click','button',function(e){
+        let $button = $(e.currentTarget)
+        let speed= $button.attr('data-speed')
+        $button.addClass('active')
+        .siblings('.active').removeClass('active')
+        switch(speed){
+            case 'slow':
+                duration=100
+                break
+            case 'nomarl':
+                duration = 50
+                break
+            case 'fast':
+            duration = 10
+            break
+        }
+    })
 }.call()

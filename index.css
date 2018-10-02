@@ -16,12 +16,13 @@ body{
     height:100vh;
 }
 #code{
-    overflow: hidden;
+    
     height: 100%;
 }
 .code-wrapper{
     flex:1;
     height:50%;
+    overflow: hidden;
 }
 .preview-wrapper{
     flex:1;
